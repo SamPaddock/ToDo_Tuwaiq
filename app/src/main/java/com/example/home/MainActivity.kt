@@ -1,10 +1,18 @@
 package com.example.home
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import com.example.home.Task.AddTaskFragment
+import com.example.home.Task.EditTaskFragment
+import com.example.home.Task.ViewTaskFragment
+import com.example.home.Task.ViewTasksFragment
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -23,12 +31,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var mainToolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.mainActivityToolbar)
+        setupToolbarAndSliderDrawer(savedInstanceState)
+
+        //Frame layout that holds the fragment
+        displayFragment(ViewTasksFragment())
+    }
+
+    private fun setupToolbarAndSliderDrawer(savedInstanceState: Bundle?) {
+        var mainToolbar = findViewById<Toolbar>(R.id.mainActivityToolbar)
         setSupportActionBar(mainToolbar)
 
         mainToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
 
-        setSlider(savedInstanceState,mainToolbar)
+        setSlider(savedInstanceState, mainToolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -37,22 +52,20 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun setSlider(savedInstanceState: Bundle?, mainToolbar: Toolbar) {
+    private fun setSlider(savedInstanceState: Bundle?, mainToolbar: Toolbar) {
         val mainSlider = findViewById<MaterialDrawerSliderView>(R.id.mainSlider)
 
         Toast.makeText(this, "created slider", Toast.LENGTH_SHORT).show()
 
         mainSliderContent(mainSlider, savedInstanceState)
         mainSlider.onDrawerItemClickListener = { v, drawerItem, position ->
-            var selected = when(drawerItem.identifier){
-                0.toLong() -> "Home"
-                1.toLong() -> "Profile"
-                2.toLong() -> "Today"
-                3.toLong() -> "Add"
-                else -> "Nothing"
+            when(drawerItem.identifier){
+                0.toLong() -> displayFragment(ViewTasksFragment())
+                1.toLong() -> displayFragment(ViewTaskFragment())
+                2.toLong() -> displayFragment(AddTaskFragment())
+                3.toLong() -> displayFragment(EditTaskFragment())
+                else -> displayFragment(ViewTasksFragment())
             }
-
-            Toast.makeText(this, "${position}: $selected", Toast.LENGTH_SHORT).show()
             false
         }
         mainToolbar.setNavigationOnClickListener {
@@ -73,24 +86,29 @@ class MainActivity : AppCompatActivity() {
                 }
             )
             onAccountHeaderListener = { view, profile, current ->
-                // react to profile changes
                 false
             }
             withSavedInstance(savedInstanceState)
         }
 
         val item = PrimaryDrawerItem().apply {
-            nameRes = R.string.app_name
-            iconRes = R.drawable.ic_add_24
+            nameRes = R.string.home
+            iconRes = R.drawable.ic_home_24
             identifier = 0
         }
         val item1 = PrimaryDrawerItem().apply {
+            nameRes = R.string.profile
+            iconRes = R.drawable.ic_id_card_24
             identifier = 1
         }
         val item2 = PrimaryDrawerItem().apply {
+            nameRes = R.string.today
+            iconRes = R.drawable.ic_today_24
             identifier = 2
         }
         val item3 = SecondaryDrawerItem().apply {
+            nameRes = R.string.setting
+            iconRes = R.drawable.ic_settings_24
             identifier = 3
         }
 
@@ -102,5 +120,9 @@ class MainActivity : AppCompatActivity() {
             DividerDrawerItem(),
             item3
         )
+    }
+
+    fun displayFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.task_fragment_frame, fragment).commit()
     }
 }

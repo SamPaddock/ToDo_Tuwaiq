@@ -1,4 +1,5 @@
 <resources>
+    <!-- Component String -->
     <string name="app_name">My Tasks</string>
     <string name="home_search">Search</string>
     <string name="home_filter">Filter</string>
@@ -7,7 +8,15 @@
     <string name="login_btn">Login</string>
     <string name="collection_users">users</string>
     <string name="sign_up_btn">Sign Up</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="attachments">Attachments</string>
+    <string name="location">Location</string>
+    <!-- Slider drawer String -->
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="today">Today</string>
+    <string name="setting">Setting</string>
+    <string name="add">Add</string>
+    <!-- Component hint -->
     <string name="due_date_hint">Due date</string>
     <string name="task_title_hint">task title</string>
     <string name="task_details_hint">Task Details</string>
@@ -21,7 +30,12 @@
     <string name="member_hint">Assign to</string>
     <string name="additional_task_details_hint">Additional task details</string>
     <string name="creation_date_hint">Creation date</string>
-    <!-- firbase -->
+    <!-- firebase -->
     <string name="user">users</string>
     <string name="task">task</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
+    <string name="dueDate">dueDate</string>
+    <string name="creationDate">creationDate</string>
+
 </resources>
