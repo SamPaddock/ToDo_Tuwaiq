@@ -9,6 +9,7 @@ import com.example.home.Model.Task
 import com.example.home.R
 
 class ViewTaskFragment : Fragment() {
+    //TODO: view image and location
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.home.R
 
 class EditTaskFragment : Fragment() {
+    //TODO: edit depending on dueDate statues
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -14,7 +15,6 @@ class EditTaskFragment : Fragment() {
         val inflate = inflater.inflate(R.layout.fragment_edit_task, container, false)
 
         setHasOptionsMenu(true)
-
 
         return inflate
     }

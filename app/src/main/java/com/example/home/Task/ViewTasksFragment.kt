@@ -78,10 +78,7 @@ class ViewTasksFragment : Fragment() {
         Snackbar.make(this.requireView(),msg, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun viewClickedTask(task: Task){
-
-    }
-
+    //TODO: Remove after confirming firebase DB is functional
     fun populateTask(){
         taskList.add(Task("1","task1","testing",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
         taskList.add(Task("2","task2","testing second row",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))

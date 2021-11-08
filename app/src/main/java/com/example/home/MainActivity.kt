@@ -1,12 +1,7 @@
 package com.example.home
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.home.Task.AddTaskFragment
@@ -26,19 +21,17 @@ import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 class MainActivity : AppCompatActivity() {
 
-    var menu: Menu? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setupToolbarAndSliderDrawer(savedInstanceState)
 
-        //Frame layout that holds the fragment
         displayFragment(ViewTasksFragment(),"home")
     }
 
     private fun setupToolbarAndSliderDrawer(savedInstanceState: Bundle?) {
-        var mainToolbar = findViewById<Toolbar>(R.id.mainActivityToolbar)
+        val mainToolbar = findViewById<Toolbar>(R.id.mainActivityToolbar)
         setSupportActionBar(mainToolbar)
 
         mainToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24)
@@ -65,22 +58,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun mainSliderContent(mainSlider: MaterialDrawerSliderView, savedInstanceState: Bundle?) {
-        mainSlider.headerView = AccountHeaderView(this).apply {
-            attachToSliderView(mainSlider) // attach to the slider
-            addProfiles(
-                ProfileDrawerItem().apply {
-                    nameText = "Sarah A."
-                    descriptionText = "sarah.matawah@gmail.com"
-                    iconRes = R.drawable.ic_filter_24
-                    identifier = 102
-                }
-            )
-            onAccountHeaderListener = { view, profile, current ->
-                false
-            }
-            withSavedInstance(savedInstanceState)
-        }
+    private fun mainSliderContent(mainSlider: MaterialDrawerSliderView, savedInstance: Bundle?) {
+        //TODO: Custom list
+        //TODO: Click custom list opens ViewTasks with filter option
+        mainSliderHeader(mainSlider, savedInstance)
 
         val item = PrimaryDrawerItem().apply {
             nameRes = R.string.home
@@ -111,6 +92,24 @@ class MainActivity : AppCompatActivity() {
             DividerDrawerItem(),
             item3
         )
+    }
+
+    private fun mainSliderHeader(mainSlider: MaterialDrawerSliderView, savedInstanceState: Bundle?){
+        mainSlider.headerView = AccountHeaderView(this).apply {
+            attachToSliderView(mainSlider) // attach to the slider
+            addProfiles(
+                ProfileDrawerItem().apply {
+                    nameText = "Sarah A."
+                    descriptionText = "sarah.matawah@gmail.com"
+                    iconRes = R.drawable.ic_filter_24
+                    identifier = 102
+                }
+            )
+            onAccountHeaderListener = { view, profile, current ->
+                false
+            }
+            withSavedInstance(savedInstanceState)
+        }
     }
 
     fun displayFragment(fragment: Fragment, tag: String) {

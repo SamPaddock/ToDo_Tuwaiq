@@ -3,11 +3,10 @@ package com.example.home.Task
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Toast
-import com.example.home.MainActivity
 import com.example.home.R
 
 class AddTaskFragment : Fragment() {
+    //TODO:
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
