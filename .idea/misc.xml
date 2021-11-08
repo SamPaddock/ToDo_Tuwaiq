@@ -6,10 +6,15 @@
         <entry key="app/src/main/res/drawable/drawer_style.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/drawable/ic_id_card_24.xml" value="0.2796296296296296" />
         <entry key="app/src/main/res/drawable/ic_name_24.xml" value="0.2796296296296296" />
+        <entry key="app/src/main/res/font/comic_font.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.31432236272282105" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.254981884057971" />
+        <entry key="app/src/main/res/layout/fragment_add_task.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_addtask.xml" value="0.254981884057971" />
+        <entry key="app/src/main/res/layout/fragment_edit_task.xml" value="0.254981884057971" />
+        <entry key="app/src/main/res/layout/fragment_view_task.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_view_tasks.xml" value="0.254981884057971" />
         <entry key="app/src/main/res/layout/taskview_row_layout.xml" value="0.375" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.3880208333333333" />

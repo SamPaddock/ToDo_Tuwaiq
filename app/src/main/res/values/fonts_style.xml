@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="comic_body_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:font">@font/comic_font_2</item>
+    </style>
+
+    <style name="comic_title_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:font">@font/comic_font_2</item>
+    </style>
+
+    <style name="play_body_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:font">@font/play_font</item>
+    </style>
+
+    <style name="play_title_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:font">@font/play_font</item>
+    </style>
+</resources>
