@@ -1,10 +1,8 @@
 package com.example.home.Task
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.home.Adapter.TaskAdapter
@@ -16,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.ramotion.foldingcell.FoldingCell
 import java.util.*
 
 class ViewTasksFragment : Fragment() {
@@ -29,20 +26,27 @@ class ViewTasksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val inflate = inflater.inflate(R.layout.fragment_view_tasks, container, false)
-
+        taskList.removeAll(taskList)
+        setHasOptionsMenu(true)
         getFromFireBase()
+        populateTask()
 
         val recycledView = inflate.findViewById<RecyclerView>(R.id.recyclerView)
         recycledView.layoutManager = LinearLayoutManager(activity)
-        recycledView.adapter = TaskAdapter(taskList)
+        recycledView.adapter = context?.let { TaskAdapter(it, taskList) }
 
         val addTaskBtn = inflate.findViewById<FloatingActionButton>(R.id.fabAddTask)
 
         addTaskBtn.setOnClickListener {
-            (context as MainActivity).displayFragment(AddTaskFragment())
+            (context as MainActivity).displayFragment(AddTaskFragment(),"add")
         }
 
         return inflate
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu,menu)
+        super.onCreateOptionsMenu(menu,inflater)
     }
 
     fun getFromFireBase(){
@@ -74,11 +78,13 @@ class ViewTasksFragment : Fragment() {
         Snackbar.make(this.requireView(),msg, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun populateTask(): MutableList<Task>{
-        var list = mutableListOf<Task>()
-        list.add(Task("1","task1","testing",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
-        list.add(Task("2","task2","testing second row",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
-        list.add(Task("3","task3","testing third row",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
-        return list
+    fun viewClickedTask(task: Task){
+
+    }
+
+    fun populateTask(){
+        taskList.add(Task("1","task1","testing",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
+        taskList.add(Task("2","task2","testing second row",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
+        taskList.add(Task("3","task3","testing third row",Calendar.getInstance().timeInMillis,Calendar.getInstance().timeInMillis))
     }
 }

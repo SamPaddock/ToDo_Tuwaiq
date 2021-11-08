@@ -20,7 +20,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="24dp"
-                app:cardCornerRadius="70dp"
+                app:cardCornerRadius="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -65,7 +65,7 @@
             android:textAppearance="@style/play_body_style" />
 
         <TextView
-            android:id="@+id/textViewViewmediaAttachments"
+            android:id="@+id/textViewViewMediaAttachments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

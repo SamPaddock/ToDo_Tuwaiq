@@ -11,6 +11,7 @@ import com.example.home.R
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -38,6 +39,8 @@ class Login : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener {
+                    if (it is FirebaseAuthInvalidCredentialsException){
+                    }
                     Toast.makeText(this, "Login failed without completion ${it.message}", Toast.LENGTH_SHORT).show()
                 }
         }

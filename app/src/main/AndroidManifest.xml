@@ -10,24 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Home">
         <activity
+            android:name=".DrawerSlider.DrawerSliderLayout"
+            android:exported="true" />
+        <activity
             android:name=".Launcher.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>>
+        </activity>
         <activity
             android:name=".User.SignUp"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".User.Login"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

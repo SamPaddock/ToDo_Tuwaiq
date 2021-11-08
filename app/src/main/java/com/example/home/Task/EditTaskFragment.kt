@@ -1,10 +1,8 @@
 package com.example.home.Task
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.example.home.R
 
 class EditTaskFragment : Fragment() {
@@ -13,6 +11,15 @@ class EditTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_task, container, false)
+        val inflate = inflater.inflate(R.layout.fragment_edit_task, container, false)
+
+        setHasOptionsMenu(true)
+
+
+        return inflate
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu,inflater)
     }
 }

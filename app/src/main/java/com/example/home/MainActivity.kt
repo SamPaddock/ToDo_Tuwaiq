@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setupToolbarAndSliderDrawer(savedInstanceState)
 
         //Frame layout that holds the fragment
-        displayFragment(ViewTasksFragment())
+        displayFragment(ViewTasksFragment(),"home")
     }
 
     private fun setupToolbarAndSliderDrawer(savedInstanceState: Bundle?) {
@@ -46,25 +46,17 @@ class MainActivity : AppCompatActivity() {
         setSlider(savedInstanceState, mainToolbar)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.home_menu,menu)
-        this.menu = menu
-        return super.onCreateOptionsMenu(menu)
-    }
-
     private fun setSlider(savedInstanceState: Bundle?, mainToolbar: Toolbar) {
         val mainSlider = findViewById<MaterialDrawerSliderView>(R.id.mainSlider)
-
-        Toast.makeText(this, "created slider", Toast.LENGTH_SHORT).show()
 
         mainSliderContent(mainSlider, savedInstanceState)
         mainSlider.onDrawerItemClickListener = { v, drawerItem, position ->
             when(drawerItem.identifier){
-                0.toLong() -> displayFragment(ViewTasksFragment())
-                1.toLong() -> displayFragment(ViewTaskFragment())
-                2.toLong() -> displayFragment(AddTaskFragment())
-                3.toLong() -> displayFragment(EditTaskFragment())
-                else -> displayFragment(ViewTasksFragment())
+                0.toLong() -> displayFragment(ViewTasksFragment(),"home")
+                1.toLong() -> displayFragment(ViewTaskFragment(),"display")
+                2.toLong() -> displayFragment(AddTaskFragment(),"add")
+                3.toLong() -> displayFragment(EditTaskFragment(),"edit")
+                else -> displayFragment(ViewTasksFragment(),"home")
             }
             false
         }
@@ -74,7 +66,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mainSliderContent(mainSlider: MaterialDrawerSliderView, savedInstanceState: Bundle?) {
-        Toast.makeText(this, "setting slider content", Toast.LENGTH_SHORT).show()
         mainSlider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(mainSlider) // attach to the slider
             addProfiles(
@@ -122,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun displayFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.task_fragment_frame, fragment).commit()
+    fun displayFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager.beginTransaction().replace(R.id.task_fragment_frame, fragment).addToBackStack(tag).commit()
     }
 }

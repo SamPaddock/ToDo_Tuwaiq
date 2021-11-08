@@ -2,21 +2,35 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/home_search_view"
-        android:icon="@drawable/ic_search_24"
-        android:title="@string/home_search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/home_filter_menu"
-        android:icon="@drawable/ic_filter_24"
-        android:title="@string/home_filter">
-        <menu />
-    </item>
-    <item
-        android:id="@+id/home_sort_menu"
-        android:title="@string/home_sort">
-        <menu />
-    </item>
+    <group
+        android:id="@+id/mainActivityGroup"
+        android:visible="true">
+        <item
+            android:id="@+id/home_search_view"
+            android:icon="@drawable/ic_search_24"
+            android:title="@string/home_search"
+            app:actionViewClass="android.widget.SearchView"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/home_filter_menu"
+            android:icon="@drawable/ic_filter_24"
+            android:title="@string/home_filter">
+            <menu />
+        </item>
+        <item
+            android:id="@+id/home_sort_menu"
+            android:title="@string/home_sort">
+            <menu />
+        </item>
+    </group>
+    <group
+        android:id="@+id/addTaskActivityGroup"
+        android:visible="false">
+        <item
+            android:id="@+id/view_task_delete"
+            android:icon="@drawable/ic_delete_24"
+            android:title="@string/task_delete"
+            app:showAsAction="always" />
+    </group>
+
 </menu>
