@@ -2,6 +2,7 @@ package com.example.home.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class TaskAdapter(var context: Context, var data: MutableList<Task>): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
+        holder.foldingCell.initialize(1000, Color.parseColor("#5D9091"),0)
         val time =  data[position].dueDate
         val calender = Calendar.getInstance()
         calender.timeInMillis = time

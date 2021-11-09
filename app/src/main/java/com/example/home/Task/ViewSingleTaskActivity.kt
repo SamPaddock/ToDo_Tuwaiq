@@ -18,12 +18,19 @@ class ViewSingleTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_single_task)
 
-        val mainToolbar = findViewById<Toolbar>(R.id.viewSingleTaskToolbar)
-        setSupportActionBar(mainToolbar)
+        setupToolbar()
 
         var data = intent.getSerializableExtra("task") as Task
 
         setData(data)
+    }
+
+    private fun setupToolbar() {
+        val mainToolbar = findViewById<Toolbar>(R.id.viewSingleTaskToolbar)
+        mainToolbar.setNavigationIcon(R.drawable.ic_back_24)
+        setSupportActionBar(mainToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

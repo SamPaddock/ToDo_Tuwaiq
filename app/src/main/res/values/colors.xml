@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main Colors -->
     <color name="main_1">#5D9091</color>
     <color name="main_2">#5D7091</color>
     <color name="main_3">#5D5091</color>
 
+    <!-- Label Colors -->
+    <color name="labelGreenUnChecked">#28B546</color>
+    <color name="labelGreenChecked">#417C4D</color>
+    <color name="labelYellowUnChecked">#B5B328</color>
+    <color name="labelYellowChecked">#7C6F41</color>
+    <color name="labelRedUnChecked">#B52838</color>
+    <color name="labelRedChecked">#7C414A</color>
+    <color name="labelPurpleUnChecked">#6F28B5</color>
+    <color name="labelPurpleChecked">#4E417C</color>
+    <color name="labelBlueUnChecked">#2873B5</color>
+    <color name="labelBlueChecked">#41697C</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

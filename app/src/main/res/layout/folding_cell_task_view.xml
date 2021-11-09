@@ -13,7 +13,7 @@
         android:layout_marginEnd="4dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:padding="4dp"
+        android:padding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,6 +22,7 @@
             android:id="@+id/cell_task_row_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_1"
             android:padding="4dp"
             android:visibility="gone">
 
@@ -125,6 +126,7 @@
 
         <FrameLayout
             android:id="@+id/cell_task_view"
+            android:background="@color/main_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -135,6 +137,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,14 +160,16 @@
 
                     <TextView
                         android:id="@+id/unfoldedTextViewTaskDueDate"
-                        android:layout_width="80dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
+                        android:layout_marginEnd="16dp"
                         android:text="@string/due_date_hint"
+                        android:textAlignment="textEnd"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.13" />
+                        app:layout_constraintVertical_bias="0.172" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/unfoldedCardView"

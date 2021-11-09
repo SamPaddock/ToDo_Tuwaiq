@@ -2,27 +2,66 @@
 <resources>
     <style name="comic_body_style" parent="TextAppearance.AppCompat">
         <item name="android:color">#000000</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:font">@font/comic_font_2</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/comic_font_2</item>
     </style>
 
     <style name="comic_title_style" parent="TextAppearance.AppCompat">
         <item name="android:color">#000000</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:font">@font/comic_font_2</item>
+        <item name="android:fontFamily">@font/comic_font_2</item>
     </style>
 
     <style name="play_body_style" parent="TextAppearance.AppCompat">
         <item name="android:color">#000000</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:font">@font/play_font</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/play_font</item>
     </style>
 
     <style name="play_title_style" parent="TextAppearance.AppCompat">
         <item name="android:color">#000000</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:font">@font/play_font</item>
+        <item name="android:fontFamily">@font/play_font</item>
+    </style>
+
+    <style name="cutive_body_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/cutive_mono</item>
+    </style>
+
+    <style name="cutive_title_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/cutive_mono</item>
+    </style>
+
+    <style name="nova_body_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/nova_round</item>
+    </style>
+
+    <style name="nova_title_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/nova_round</item>
+    </style>
+
+    <style name="main_body_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/tinos</item>
+    </style>
+
+    <style name="main_title_style" parent="TextAppearance.AppCompat">
+        <item name="android:color">#000000</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/tinos</item>
     </style>
 </resources>
