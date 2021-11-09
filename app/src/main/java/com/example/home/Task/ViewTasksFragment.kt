@@ -1,5 +1,6 @@
 package com.example.home.Task
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -38,7 +39,9 @@ class ViewTasksFragment : Fragment() {
         val addTaskBtn = inflate.findViewById<FloatingActionButton>(R.id.fabAddTask)
 
         addTaskBtn.setOnClickListener {
-            (context as MainActivity).displayFragment(AddTaskFragment(),"add")
+            var baseView = context as MainActivity
+            var intent = Intent(baseView,AddTaskActivity::class.java)
+            baseView.startActivity(intent)
         }
 
         return inflate
@@ -50,16 +53,16 @@ class ViewTasksFragment : Fragment() {
     }
 
     fun getFromFireBase(){
-        var user = Firebase.auth.currentUser?.uid
-        var db = Firebase.firestore
+        val user = Firebase.auth.currentUser?.uid
+        val db = Firebase.firestore
 
         db.collection(getString(R.string.user)).document(user.toString())
             .collection(getString(R.string.task)).get()
             .addOnCompleteListener { document ->
                 if(document.isSuccessful && document.result != null){
-                    var data = document.result!!
+                    val data = document.result!!
                     for (task in data){
-                        var taskData = task.data
+                        val taskData = task.data
                         taskList.add(Task(
                             task.id,
                             taskData.get(getString(R.string.title)) as String,

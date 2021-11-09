@@ -2,11 +2,9 @@ package com.example.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.example.home.Task.AddTaskFragment
-import com.example.home.Task.EditTaskFragment
-import com.example.home.Task.ViewTaskFragment
 import com.example.home.Task.ViewTasksFragment
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -46,9 +44,9 @@ class MainActivity : AppCompatActivity() {
         mainSlider.onDrawerItemClickListener = { v, drawerItem, position ->
             when(drawerItem.identifier){
                 0.toLong() -> displayFragment(ViewTasksFragment(),"home")
-                1.toLong() -> displayFragment(ViewTaskFragment(),"display")
-                2.toLong() -> displayFragment(AddTaskFragment(),"add")
-                3.toLong() -> displayFragment(EditTaskFragment(),"edit")
+                1.toLong() -> displayFragment(ViewTasksFragment(),"display")
+                2.toLong() -> displayFragment(ViewTasksFragment(),"add")
+                3.toLong() -> displayFragment(ViewTasksFragment(),"edit")
                 else -> displayFragment(ViewTasksFragment(),"home")
             }
             false

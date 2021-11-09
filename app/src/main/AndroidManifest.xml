@@ -10,7 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Home">
         <activity
-            android:name=".DrawerSlider.DrawerSliderLayout"
+            android:name=".Task.ViewSingleTaskActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Task.EditTaskActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".Task.AddTaskActivity"
             android:exported="true" />
         <activity
             android:name=".Launcher.Splash"
@@ -23,13 +30,13 @@
         </activity>
         <activity
             android:name=".User.SignUp"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".User.Login"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

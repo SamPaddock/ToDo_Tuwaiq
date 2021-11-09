@@ -31,11 +31,12 @@
     <string name="additional_task_details_hint">Additional task details</string>
     <string name="creation_date_hint">Creation date</string>
     <!-- firebase -->
-    <string name="user">users</string>
-    <string name="task">task</string>
-    <string name="title">title</string>
-    <string name="description">description</string>
-    <string name="dueDate">dueDate</string>
-    <string name="creationDate">creationDate</string>
+    <string name="user">Users</string>
+    <string name="name">Name</string>
+    <string name="task">Task</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="dueDate">DueDate</string>
+    <string name="creationDate">CreationDate</string>
 
 </resources>

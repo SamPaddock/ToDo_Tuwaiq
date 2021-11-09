@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.home.MainActivity
 import com.example.home.Model.Task
 import com.example.home.R
-import com.example.home.Task.AddTaskFragment
-import com.example.home.Task.ViewTaskFragment
+import com.example.home.Task.ViewSingleTaskActivity
+import com.example.home.Task.ViewTasksFragment
 import com.ramotion.foldingcell.FoldingCell
 import java.util.*
 
@@ -27,10 +26,10 @@ class TaskAdapter(var context: Context, var data: MutableList<Task>): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        var time =  data[position].dueDate
-        var calender = Calendar.getInstance()
+        val time =  data[position].dueDate
+        val calender = Calendar.getInstance()
         calender.timeInMillis = time
-        var date = "${calender.get(Calendar.DATE)}"
+        val date = "${calender.get(Calendar.DATE)}"
         holder.taskTitle.text = data[position].title
         holder.taskDescription.text = data[position].desciption
         holder.taskDueDate.text = date
@@ -45,11 +44,10 @@ class TaskAdapter(var context: Context, var data: MutableList<Task>): RecyclerVi
         }
 
         holder.showTaskDetails.setOnClickListener {
-            var fragment = ViewTaskFragment()
-            fragment.arguments = Bundle().apply {
-                this.putSerializable("task", data[position])
-            }
-            (context as MainActivity).displayFragment(fragment,"display")
+            val baseView = context as MainActivity
+            var intent = Intent(baseView,ViewSingleTaskActivity::class.java)
+            intent.putExtra("task",data[position])
+            baseView.startActivity(intent)
         }
     }
 
