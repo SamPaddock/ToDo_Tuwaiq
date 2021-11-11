@@ -40,10 +40,14 @@
     <string name="dueDate">DueDate</string>
     <string name="creationDate">CreationDate</string>
     <string name="member">Member</string>
+    <string name="tag">Tag</string>
+    <string name="select_priority">Select Priority</string>
     <string name="high_priority">High</string>
     <string name="medium_priority">Medium</string>
     <string name="low_priority">Low</string>
-    <string name="tag">Tag</string>
-    <string name="select_priority">Select Priority</string>
+    <string name="see_more">See More</string>
+    <string name="done">Done</string>
+    <string name="_1_day_hint">1 day</string>
+    <string name="due_on_hint">Due on </string>
 
 </resources>

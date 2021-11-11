@@ -54,7 +54,11 @@ class Login : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    //TODO: Show general message
+                    Toast.makeText(
+                        this,
+                        "Unknown issue - ${it.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             }
@@ -62,11 +66,8 @@ class Login : AppCompatActivity() {
 
     private fun loginToApp(result: Task<AuthResult>) {
         val intent = Intent(this, MainActivity::class.java)
-        val userID = result.result?.user?.uid!!
-        val userEmail = result.result?.user?.email!!
-        val currentUser = User(userID,userEmail)
-        intent.putExtra("user", currentUser)
         startActivity(intent)
+        finish()
     }
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,9 +9,9 @@
         android:id="@+id/folding_cell"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:padding="0dp"
@@ -23,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/main_1"
-            android:padding="4dp"
             android:visibility="gone">
 
             <androidx.cardview.widget.CardView
@@ -46,9 +46,11 @@
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/foldedCardViewViewImage"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_margin="24dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="8dp"
                             app:cardCornerRadius="50dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -61,63 +63,70 @@
                                 app:srcCompat="@mipmap/ic_app_icon" />
                         </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/foldedTextViewViewDueDate"
+                        <ImageView
+                            android:id="@+id/imageView5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            android:layout_marginEnd="24dp"
-                            android:text="@string/due_date_hint"
+                            android:layout_marginEnd="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewDueDateFolded"
+                            app:srcCompat="@drawable/ic_arrow_up_24" />
+
+                        <TextView
+                            android:id="@+id/textViewDueDateFolded"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:textAppearance="@style/comic_body_style"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewFoldedTaskTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:textAppearance="@style/comic_title_style"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textViewDueDateFolded"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/foldedCardViewViewImage"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.506" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/foldedTextViewViewTaskTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:text="@string/task_title_hint"
-                        android:textAppearance="@style/play_title_style" />
-
-                    <TextView
                         android:id="@+id/foldedTextViewViewTaskDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:lines="8"
                         android:text="@string/task_details_hint"
-                        android:textAppearance="@style/play_body_style" />
+                        android:textAppearance="@style/comic_body_style" />
 
-                    <TextView
-                        android:id="@+id/foldedTextViewViewMediaAttachments"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:text="@string/attachments"
-                        android:textAppearance="@style/play_title_style"
-                        android:visibility="gone" />
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
-                    <TextView
-                        android:id="@+id/foldedTextViewViewTaskLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:text="@string/location"
-                        android:textAppearance="@style/play_title_style"
-                        android:visibility="gone" />
+                    </LinearLayout>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonViewTask"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="See More" />
+                        android:layout_margin="16dp"
+                        android:text="@string/see_more" />
 
                 </LinearLayout>
 
@@ -126,18 +135,14 @@
 
         <FrameLayout
             android:id="@+id/cell_task_view"
-            android:background="@color/main_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/main_1">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/unfolded_task_cell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,56 +153,80 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/unfoldedTextViewTaskTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="@string/task_title_hint"
-                        app:layout_constraintEnd_toStartOf="@+id/unfoldedTextViewTaskDueDate"
-                        app:layout_constraintStart_toEndOf="@+id/unfoldedCardView"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/unfoldedTextViewTaskDueDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="@string/due_date_hint"
-                        android:textAlignment="textEnd"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.172" />
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/unfoldedCardView"
                         android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="16dp"
-                        app:cardCornerRadius="60dp"
+                        android:layout_height="100dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/unfoldedImageViewMemberTask"
+                        <TextView
+                            android:id="@+id/unfoldedTextViewTaskDaysRemining"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:srcCompat="@mipmap/ic_app_icon" />
+                            android:gravity="center"
+                            android:text="@string/_1_day_hint"
+                            android:textAppearance="@style/comic_title_style" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
-                        android:id="@+id/unfoldedTextViewTaskDetails"
+                        android:id="@+id/unfoldedTextViewTaskTitle"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_margin="8dp"
-                        android:text="@string/task_details_hint"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/unfoldedTextViewTaskDueDate"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/task_title_hint"
+                        android:textAppearance="@style/comic_title_style"
+                        app:layout_constraintEnd_toStartOf="@+id/foldedCheckBoxIsDone"
+                        app:layout_constraintStart_toEndOf="@+id/unfoldedCardView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/foldedCheckBoxIsDone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/unfoldedTextViewTaskPriority"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/medium_priority"
+                        android:textAppearance="@style/comic_body_style"
+                        app:layout_constraintBottom_toTopOf="@+id/textViewStartEndDate"
                         app:layout_constraintStart_toEndOf="@+id/unfoldedCardView"
                         app:layout_constraintTop_toBottomOf="@+id/unfoldedTextViewTaskTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewStartEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textAppearance="@style/comic_body_style"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.01"
+                        app:layout_constraintStart_toEndOf="@+id/unfoldedCardView" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/foldedCheckBoxIsDone"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:srcCompat="@drawable/ic_arrow_down_24" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

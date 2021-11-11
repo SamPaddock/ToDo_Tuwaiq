@@ -2,10 +2,29 @@ package com.example.home.Model
 
 import java.io.Serializable
 
-class Task(
-    var taskID: String,
+data class Task(
     var title: String,
-    var desciption: String,
-    var dueDate: Long,
-    var creationDate: Long): Serializable {
+    var description: String,
+    var assignedMemberID: String
+): Serializable {
+    var taskID: String? = null
+    var dueDate: Long? = null
+    var creationDate: Long? = null
+    var priority: String? = null
+    var tag: String? = null
+    var isDone: Boolean? = false
+
+    override fun toString(): String {
+        return """
+            title: $title
+            description: $description
+            assignedMemberID: $assignedMemberID
+            taskID: $taskID
+            dueDate: $dueDate
+            creationDate: $creationDate
+            priority: $priority
+            tag: $tag
+        """.trimIndent()
+    }
+
 }

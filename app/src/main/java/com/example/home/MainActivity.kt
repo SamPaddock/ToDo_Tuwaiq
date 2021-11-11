@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.example.home.Model.User
 import com.example.home.Task.ViewTasksFragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -93,13 +96,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mainSliderHeader(mainSlider: MaterialDrawerSliderView, savedInstanceState: Bundle?){
+        val currentUser = Firebase.auth.currentUser
         mainSlider.headerView = AccountHeaderView(this).apply {
             attachToSliderView(mainSlider) // attach to the slider
             addProfiles(
                 ProfileDrawerItem().apply {
-                    nameText = "Sarah A."
-                    descriptionText = "sarah.matawah@gmail.com"
-                    iconRes = R.drawable.ic_filter_24
+                    descriptionText = currentUser?.email ?: ""
                     identifier = 102
                 }
             )

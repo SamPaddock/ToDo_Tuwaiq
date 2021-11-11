@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -29,8 +28,11 @@ class ViewSingleTaskActivity : AppCompatActivity() {
         val mainToolbar = findViewById<Toolbar>(R.id.viewSingleTaskToolbar)
         mainToolbar.setNavigationIcon(R.drawable.ic_back_24)
         setSupportActionBar(mainToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,7 +54,7 @@ class ViewSingleTaskActivity : AppCompatActivity() {
     fun setData(data: Task?) {
         if (data != null) {
             findViewById<TextView>(R.id.textViewViewTaskTitle).text = data.title
-            findViewById<TextView>(R.id.textViewViewTaskDetails).text = data.desciption
+            findViewById<TextView>(R.id.textViewViewTaskDetails).text = data.description
             findViewById<TextView>(R.id.textViewViewDueDate).text = data.dueDate.toString()
             findViewById<ImageView>(R.id.imageViewViewMemberTask).setImageResource(R.mipmap.ic_app_icon)
         }

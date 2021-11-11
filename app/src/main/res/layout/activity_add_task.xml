@@ -6,30 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".Task.AddTaskActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addTaskToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addTaskToolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/addTaskToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputAddTaskTitle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:hint="@string/task_title_hint"
+                app:helperText="Required"
+                app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/ic_title_24">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -44,8 +55,12 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:hint="@string/task_details_hint"
+                app:helperText="Required"
+                app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/ic_description_24">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -53,22 +68,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="start|top"
-                    android:lines="3"
+                    android:lines="5"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp">
 
                 <TextView
                     android:id="@+id/textViewAddDueDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="24dp"
                     android:text="@string/due_date_hint"
-                    android:textAppearance="@style/comic_body_style"
+                    android:textAppearance="@style/comic_title_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageViewAddDueDate"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,13 +97,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
                     android:src="@drawable/ic_calendar_40"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_calendar_40" />
+                    app:srcCompat="@drawable/ic_calendar_40"
+                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -117,8 +139,8 @@
 
                     <ImageView
                         android:id="@+id/imageViewAddMemberTask"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         tools:srcCompat="@tools:sample/avatars" />
                 </androidx.cardview.widget.CardView>
 
@@ -139,12 +161,12 @@
                         android:id="@+id/dropDownUser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:dropDownHeight="220dp"
                         android:hint="@string/member"
                         android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -169,10 +191,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_add_40" />
+                    app:srcCompat="@drawable/ic_add_40"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
@@ -223,6 +249,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="1"
                         android:text="@string/high_priority"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style" />
@@ -233,6 +260,7 @@
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:tag="2"
                         android:text="@string/medium_priority"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style" />
@@ -242,6 +270,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="3"
                         android:text="@string/low_priority"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style" />
@@ -280,6 +309,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="1"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style"
                         app:chipBackgroundColor="@color/labelGreenUnChecked" />
@@ -289,6 +319,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="2"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style"
                         app:chipBackgroundColor="@color/labelYellowUnChecked" />
@@ -298,6 +329,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="3"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style"
                         app:chipBackgroundColor="@color/labelRedUnChecked" />
@@ -307,6 +339,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="4"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style"
                         app:chipBackgroundColor="@color/labelPurpleUnChecked" />
@@ -316,6 +349,7 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
+                        android:tag="5"
                         android:textAlignment="center"
                         android:textAppearance="@style/comic_body_style"
                         app:chipBackgroundColor="@color/labelBlueUnChecked" />
