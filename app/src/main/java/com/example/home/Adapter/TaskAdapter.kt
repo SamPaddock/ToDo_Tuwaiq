@@ -11,11 +11,16 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.example.home.Firebase.FirebaseClient
 import com.example.home.MainActivity
 import com.example.home.Model.Task
 import com.example.home.R
 import com.example.home.Task.ViewSingleTaskActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.ramotion.foldingcell.FoldingCell
 import java.lang.Math.abs
 import java.util.*
@@ -56,7 +61,13 @@ class TaskAdapter(var context: Context, var data: MutableList<Task>): RecyclerVi
         holder.taskTitleFolded.text = data[position].title
         holder.taskDueDateFolded.text = convertToDate(data[position].dueDate)
         holder.taskStatusFolded.setOnClickListener {
-            var checked = holder.taskStatusFolded.isChecked
+            val checked = holder.taskStatusFolded.isChecked
+            if (checked){
+                data[position].isDone = true
+            }else {
+                data[position].isDone = false
+            }
+            FirebaseClient().updateTaskStatus(data[position],Firebase.auth.uid!!)
         }
     }
 

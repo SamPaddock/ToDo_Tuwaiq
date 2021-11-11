@@ -27,8 +27,6 @@ class FirebaseClient() {
     var dbFBStorage: FirebaseStorage? = null
     var dbFBAuth: FirebaseAuth? = null
 
-
-
     fun createDBFirestore(){
         dbFirestore = Firebase.firestore
         val settings = FirebaseFirestoreSettings.Builder()
@@ -40,6 +38,29 @@ class FirebaseClient() {
 
     fun signInUser(){
 
+    }
+
+    fun updateTaskStatus(task: Task?,userID: String): LiveData<Boolean>{
+        if (dbFirestore == null) createDBFirestore()
+
+        val liveDataTask = MutableLiveData<Boolean>()
+
+        if (task != null) {
+            dbFirestore?.collection("Users")?.document(userID)
+                ?.collection("Tasks")?.document(task.taskID.toString())
+                ?.update("isDone", task.isDone)?.addOnCompleteListener {
+                    if (it.isSuccessful){
+                        liveDataTask.postValue(true)
+                    } else {
+                        Log.d(TAG, "Error: ${it.result.toString()}")
+                    }
+                }?.addOnFailureListener {
+                    liveDataTask.postValue(false)
+                    Log.d(TAG, "Error: ${it.message}")
+                }
+        }
+
+        return liveDataTask
     }
 
     fun getUser(assignedMemberID: String): LiveData<User>{
