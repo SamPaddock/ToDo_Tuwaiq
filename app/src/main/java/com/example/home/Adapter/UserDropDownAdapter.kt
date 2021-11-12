@@ -8,9 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.LiveData
-import com.example.home.Firebase.FirebaseClient
-import com.example.home.Model.Task
 import com.example.home.Model.User
 import com.example.home.R
 import com.google.android.material.snackbar.Snackbar

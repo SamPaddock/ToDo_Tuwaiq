@@ -41,6 +41,7 @@
     <string name="creationDate">CreationDate</string>
     <string name="member">Member</string>
     <string name="tag">Tag</string>
+    <string name="priority">priority</string>
     <string name="select_priority">Select Priority</string>
     <string name="high_priority">High</string>
     <string name="medium_priority">Medium</string>

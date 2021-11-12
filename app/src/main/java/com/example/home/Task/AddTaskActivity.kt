@@ -1,26 +1,17 @@
 package com.example.home.Task
 
-import android.Manifest
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
-import androidx.core.view.get
 import com.example.home.Adapter.UserDropDownAdapter
 import com.example.home.Firebase.FirebaseClient
-import com.example.home.Model.Task
+import com.example.home.Model.TaskDataModel
 import com.example.home.Model.User
 import com.example.home.R
-import com.google.android.gms.maps.MapView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout
@@ -34,7 +25,7 @@ class AddTaskActivity : AppCompatActivity() {
     var users = mutableListOf<User>()
     var selectedUserEmail = ""
 
-    var newTasks: Task? = null
+    var newTasks: TaskDataModel? = null
 
     var selectedCalender: Calendar? = null
     var selectedPriority: String = "1"
@@ -65,7 +56,7 @@ class AddTaskActivity : AppCompatActivity() {
     }
 
     private fun addTaskToFirebase() {
-        newTasks = requiredTaskHandler(newTasks)
+        newTasks = requiredTaskHandler()
 
         if (selectedCalender != null) {
             newTasks?.dueDate = selectedCalender?.timeInMillis
@@ -109,11 +100,11 @@ class AddTaskActivity : AppCompatActivity() {
         }
     }
 
-    fun requiredTaskHandler(newTasks: Task?): Task {
+    fun requiredTaskHandler(): TaskDataModel {
         val taskTitle = findViewById<TextInputLayout>(R.id.textInputAddTaskTitle)
         val taskDescription = findViewById<TextInputLayout>(R.id.textInputAddTaskDetails)
 
-        return Task(
+        return TaskDataModel(
             taskTitle.editText?.text.toString(),
             taskDescription.editText?.text.toString(),
             selectedUserEmail,

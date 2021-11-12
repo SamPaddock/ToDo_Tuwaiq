@@ -1,25 +1,19 @@
 package com.example.home.Firebase
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.home.Model.Task
+import com.example.home.Model.TaskDataModel
 import com.example.home.Model.User
-import com.example.home.R
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.app
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.squareup.picasso.Picasso
 
 class FirebaseClient() {
 
@@ -40,15 +34,15 @@ class FirebaseClient() {
 
     }
 
-    fun updateTaskStatus(task: Task?,userID: String): LiveData<Boolean>{
+    fun updateTaskStatus(taskDataModel: TaskDataModel?, userID: String): LiveData<Boolean>{
         if (dbFirestore == null) createDBFirestore()
 
         val liveDataTask = MutableLiveData<Boolean>()
 
-        if (task != null) {
+        if (taskDataModel != null) {
             dbFirestore?.collection("Users")?.document(userID)
-                ?.collection("Tasks")?.document(task.taskID.toString())
-                ?.update("isDone", task.isDone)?.addOnCompleteListener {
+                ?.collection("Tasks")?.document(taskDataModel.taskID.toString())
+                ?.update("isDone", taskDataModel.isDone)?.addOnCompleteListener {
                     if (it.isSuccessful){
                         liveDataTask.postValue(true)
                     } else {
@@ -75,10 +69,12 @@ class FirebaseClient() {
                     if (result != null) {
                         for (document in result.documents){
                             if (document.getString("Email") == assignedMemberID){
+                                println("User: Got image")
                                 val user = User(
                                     document?.id!!,
                                     document.getString("Email")!!
                                 )
+                                user.fullname = document.getString("Name")!!
                                 user.imageUri = document.getString("Profile")!!
                                 liveDataUser.postValue(user)
                             }
@@ -115,14 +111,14 @@ class FirebaseClient() {
         return liveDataUser
     }
 
-    fun addTask(task: Task?,userID: String): LiveData<Boolean>{
+    fun addTask(taskDataModel: TaskDataModel?, userID: String): LiveData<Boolean>{
         if (dbFirestore == null) createDBFirestore()
 
         val liveDataTask = MutableLiveData<Boolean>()
 
-        if (task != null) {
+        if (taskDataModel != null) {
             dbFirestore?.collection("Users")?.document(userID)
-                ?.collection("Tasks")?.add(task)
+                ?.collection("Tasks")?.add(taskDataModel)
                 ?.addOnCompleteListener {
                     if (it.isSuccessful){
                         liveDataTask.postValue(true)
@@ -137,18 +133,18 @@ class FirebaseClient() {
         return liveDataTask
     }
 
-    fun getAllTasks(userID: String): LiveData<MutableList<Task>>{
+    fun getAllTasks(userID: String): LiveData<MutableList<TaskDataModel>>{
         if (dbFirestore == null) createDBFirestore()
 
-        val liveDataTask = MutableLiveData<MutableList<Task>>()
+        val liveDataTask = MutableLiveData<MutableList<TaskDataModel>>()
         dbFirestore?.collection("Users")?.document(userID)
             ?.collection("Tasks")?.get()
             ?.addOnCompleteListener { snapshot ->
                 if (snapshot.isSuccessful && snapshot.result != null) {
-                    val listOfTasks = mutableListOf<Task>()
+                    val listOfTasks = mutableListOf<TaskDataModel>()
                     for (document in snapshot.result!!) {
                         println("Task: ${document.data}")
-                        val task = Task(
+                        val task = TaskDataModel(
                             document.getString("title") as String,
                             document.getString("description") as String,
                             document.getString("assignedMemberID") as String
@@ -167,13 +163,19 @@ class FirebaseClient() {
         return liveDataTask
     }
 
-    fun getImageReference(imageUri: String): String{
-        var imageRef = ""
+    fun getImageReference(imageUri: String): LiveData<String>{
+        if (dbFBStorage == null) createDBStorage()
+
+        val liveDataImage = MutableLiveData<String>()
+
         dbFBStorage?.getReferenceFromUrl(imageUri)?.downloadUrl
             ?.addOnCompleteListener {
-                if (it.isSuccessful){ imageRef = it.result.toString() }
+                var imageRef = ""
+                if (it.isSuccessful){ imageRef = it.result.toString();println("Storage: Got image")}
+                Log.d(TAG,"Image loading statues: ${it.result.toString()}")
+                liveDataImage.postValue(imageRef)
             }?.addOnFailureListener { Log.d(TAG,"Error: ${it.message}") }
-        return imageRef
+        return liveDataImage
     }
 }
 

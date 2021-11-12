@@ -2,7 +2,7 @@ package com.example.home.Model
 
 import java.io.Serializable
 
-data class Task(
+data class TaskDataModel(
     var title: String,
     var description: String,
     var assignedMemberID: String

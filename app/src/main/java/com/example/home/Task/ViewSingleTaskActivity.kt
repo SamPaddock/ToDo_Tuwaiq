@@ -1,14 +1,19 @@
 package com.example.home.Task
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import com.example.home.Model.Task
+import com.example.home.Firebase.FirebaseClient
+import com.example.home.Model.TaskDataModel
+import com.example.home.Model.TaskModel
 import com.example.home.R
+import com.google.android.material.chip.Chip
+import com.squareup.picasso.Picasso
 
 class ViewSingleTaskActivity : AppCompatActivity() {
 
@@ -19,9 +24,11 @@ class ViewSingleTaskActivity : AppCompatActivity() {
 
         setupToolbar()
 
-        var data = intent.getSerializableExtra("task") as Task
+        val data = intent.getSerializableExtra("task") as TaskDataModel
 
+        getUserImage(data)
         setData(data)
+
     }
 
     private fun setupToolbar() {
@@ -51,13 +58,30 @@ class ViewSingleTaskActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun setData(data: Task?) {
+    fun setData(data: TaskDataModel?) {
         if (data != null) {
+            //Due Date: textViewViewDueDate
+            findViewById<TextView>(R.id.textViewViewDueDate).text = TaskModel().convertToDate(data.dueDate)
+            //Priority: textViewViewTaskPriority
+            val priority = TaskModel().getPriority(data.priority!!) + " " + getString(R.string.priority)
+            findViewById<TextView>(R.id.textViewViewTaskPriority).text = priority
+            //chip tag: chipTaskTag
+            findViewById<Chip>(R.id.chipTaskTag).setChipBackgroundColorResource(TaskModel().getTagColor(data.tag!!))
+            //title: textViewViewTaskTitle
             findViewById<TextView>(R.id.textViewViewTaskTitle).text = data.title
+            //Desc: textViewViewTaskDetails
             findViewById<TextView>(R.id.textViewViewTaskDetails).text = data.description
-            findViewById<TextView>(R.id.textViewViewDueDate).text = data.dueDate.toString()
-            findViewById<ImageView>(R.id.imageViewViewMemberTask).setImageResource(R.mipmap.ic_app_icon)
         }
 
+    }
+
+    fun getUserImage(data: TaskDataModel?){
+        FirebaseClient().getUser(data?.assignedMemberID!!).observe(this,{
+            findViewById<TextView>(R.id.textViewViewMemberName).text = it.fullname
+            FirebaseClient().getImageReference(it.imageUri).observe(this,{
+                val imageView = findViewById<ImageView>(R.id.imageViewViewMemberTask)
+                Picasso.get().load(Uri.parse(it.toString())).fit().into(imageView)
+            })
+        })
     }
 }

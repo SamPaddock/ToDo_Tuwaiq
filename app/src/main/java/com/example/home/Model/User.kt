@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class User(var uid: String, var email: String): Serializable {
     var fullname: String? = ""
-    var mobile: Int? = 0
+    //var mobile: Int? = 0
     var imageUri: String = ""
     var imageDataUri: String = ""
 
