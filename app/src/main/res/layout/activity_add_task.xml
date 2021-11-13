@@ -162,8 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:dropDownHeight="220dp"
-                        android:hint="@string/member"
-                        android:inputType="none" />
+                        android:hint="@string/member"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -171,7 +170,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textViewLocationHint"

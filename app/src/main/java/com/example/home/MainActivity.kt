@@ -47,9 +47,8 @@ class MainActivity : AppCompatActivity() {
         mainSlider.onDrawerItemClickListener = { v, drawerItem, position ->
             when(drawerItem.identifier){
                 0.toLong() -> displayFragment(ViewTasksFragment(),"home")
-                1.toLong() -> displayFragment(ViewTasksFragment(),"display")
-                2.toLong() -> displayFragment(ViewTasksFragment(),"add")
-                3.toLong() -> displayFragment(ViewTasksFragment(),"edit")
+                1.toLong() -> displayFragment(ViewTasksFragment(),"profile")
+                2.toLong() -> displayFragment(ViewTasksFragment(),"today")
                 else -> displayFragment(ViewTasksFragment(),"home")
             }
             false
@@ -60,8 +59,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mainSliderContent(mainSlider: MaterialDrawerSliderView, savedInstance: Bundle?) {
-        //TODO: Custom list
-        //TODO: Click custom list opens ViewTasks with filter option
         mainSliderHeader(mainSlider, savedInstance)
 
         val item = PrimaryDrawerItem().apply {
@@ -112,7 +109,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun displayFragment(fragment: Fragment, tag: String) {
-        supportFragmentManager.beginTransaction().replace(R.id.task_fragment_frame, fragment).addToBackStack(tag).commit()
+    private fun displayFragment(fragment: Fragment, tag: String) {
+        val bundle = Bundle()
+        bundle.putString("filterType", tag)
+        fragment.arguments = bundle
+        supportFragmentManager.beginTransaction().replace(R.id.task_fragment_frame, fragment).commit()
     }
 }

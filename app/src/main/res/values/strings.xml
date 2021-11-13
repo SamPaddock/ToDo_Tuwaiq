@@ -50,5 +50,14 @@
     <string name="done">Done</string>
     <string name="_1_day_hint">1 day</string>
     <string name="due_on_hint">Due on </string>
+    <string name="save_changes">Save Changes</string>
+    <string name="mark_complete">Mark Complete</string>
+    <string name="mark_incomplete">Mark incomplete</string>
+    <string name="a_z"><![CDATA[A -> Z]]></string>
+    <string name="z_a"><![CDATA[Z -> A]]></string>
+    <string name="date_added">Date Added</string>
+    <string name="network_warning">Please check your network and try again</string>
+    <string name="email_photo_warning">Make sure an image is uploaded and the email is in a correct format</string>
+    <string name="deletion_confirmation_message">Are you sure you want to delete this task?</string>
 
 </resources>

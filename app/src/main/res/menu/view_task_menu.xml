@@ -5,14 +5,14 @@
     <group
         android:id="@+id/addTaskActivityGroup">
         <item
-            android:id="@+id/view_task_delete"
-            android:icon="@drawable/ic_delete_24"
-            android:title="@string/task_delete"
-            app:showAsAction="always" />
-        <item
             android:id="@+id/view_task_edit"
             android:icon="@drawable/ic_edit_24"
             android:title="Edit"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/view_task_delete"
+            android:icon="@drawable/ic_delete_24"
+            android:title="@string/task_delete"
             app:showAsAction="always" />
     </group>
 

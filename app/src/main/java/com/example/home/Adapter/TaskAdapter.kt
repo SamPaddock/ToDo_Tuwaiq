@@ -7,10 +7,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +15,9 @@ import com.example.home.Firebase.FirebaseClient
 import com.example.home.MainActivity
 import com.example.home.Model.TaskDataModel
 import com.example.home.Model.TaskModel
+import com.example.home.Model.User
 import com.example.home.R
+import com.example.home.Task.EditTaskActivity
 import com.example.home.Task.ViewSingleTaskActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -27,7 +26,11 @@ import com.squareup.picasso.Picasso
 import java.lang.Math.abs
 import java.util.*
 
-class TaskAdapter(var lifecycleOwner: LifecycleOwner, var context: Context, var data: MutableList<TaskDataModel>): RecyclerView.Adapter<TaskHolder>(){
+class TaskAdapter(
+    var lifecycleOwner: LifecycleOwner,
+    var context: Context,
+    var data: MutableList<TaskDataModel>
+    ): RecyclerView.Adapter<TaskHolder>(), Filterable{
 
     override fun getItemCount() = data.size
 
@@ -50,17 +53,23 @@ class TaskAdapter(var lifecycleOwner: LifecycleOwner, var context: Context, var 
 
         holder.showTaskDetails.setOnClickListener {
             val baseView = context as MainActivity
-            val intent = Intent(baseView,ViewSingleTaskActivity::class.java)
-            intent.putExtra("task",data[position])
-            baseView.startActivity(intent)
+            if (TaskModel().isPastDue(data[position].dueDate)){
+                val intent = Intent(baseView,EditTaskActivity::class.java)
+                intent.putExtra("task",data[position])
+                intent.putExtra("isPastDue",true)
+                baseView.startActivity(intent)
+            } else {
+                val intent = Intent(baseView,ViewSingleTaskActivity::class.java)
+                intent.putExtra("task",data[position])
+                baseView.startActivity(intent)
+            }
+
         }
     }
 
     private fun onBindViewImage(holder: TaskHolder, position: Int){
-        FirebaseClient().getUser(data[position]?.assignedMemberID!!).observe(lifecycleOwner,{
-            println("getting image")
+        FirebaseClient().getUser(data[position].assignedMemberID).observe(lifecycleOwner,{
             FirebaseClient().getImageReference(it.imageUri).observe(lifecycleOwner,{
-                println("Got image")
                 Picasso.get().load(Uri.parse(it.toString())).fit().into(holder.taskImageFolded)
             })
         })
@@ -71,10 +80,16 @@ class TaskAdapter(var lifecycleOwner: LifecycleOwner, var context: Context, var 
         holder.taskDescriptionFolded.text = data[position].description
         holder.cardViewTagFolded.setBackgroundResource(TaskModel().getTagColor(data[position].tag!!))
         holder.taskTitleFolded.text = data[position].title
-        holder.taskStatusFolded.setOnClickListener {
-            val checked = holder.taskStatusFolded.isChecked
-            data[position].isDone = checked
-            FirebaseClient().updateTaskStatus(data[position],Firebase.auth.uid!!)
+
+        holder.taskStatusFolded.isChecked = data[position].isDone == true
+        if (TaskModel().isPastDue(data[position].dueDate)){
+            holder.taskStatusFolded.isClickable = false
+        } else {
+            holder.taskStatusFolded.setOnClickListener {
+                val checked = holder.taskStatusFolded.isChecked
+                data[position].isDone = checked
+                FirebaseClient().updateTaskStatus(data[position],Firebase.auth.uid!!)
+            }
         }
     }
 
@@ -82,10 +97,43 @@ class TaskAdapter(var lifecycleOwner: LifecycleOwner, var context: Context, var 
         holder.cardHolder.setBackgroundResource(TaskModel().getTagColor(data[position].tag!!))
         holder.taskTitle.text = data[position].title
         holder.taskpriority.text = TaskModel().getPriority(data[position].priority!!)
-        holder.taskDaysRemining.text = TaskModel().remainingDays(data[position].dueDate)
-        val s = context.getString(R.string.due_on_hint)+ " " + TaskModel()
-            .convertToDate(data[position].dueDate)
-        holder.taskStartEnd.text = s
+        if (TaskModel().isPastDue(data[position].dueDate)){
+            val s = "Past due"
+            holder.taskStartEnd.setTextColor(Color.RED)
+            holder.taskStartEnd.text = s
+        }else{
+            val remainingDays = TaskModel().remainingDays(data[position].dueDate)
+            holder.taskDaysRemining.text = when(remainingDays){
+                0 -> "Today"
+                1 -> "1 day"
+                else -> "${remainingDays} days"
+            }
+            val s = context.getString(R.string.due_on_hint)+ " " + TaskModel()
+                .convertToDate(data[position].dueDate)
+            holder.taskStartEnd.text = s
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object: Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val queryString = constraint?.toString()?.lowercase()
+                val filterResults = Filter.FilterResults()
+                filterResults.values = if (queryString==null || queryString.isEmpty())
+                    data
+                else
+                    data.filter {it.title.contains(queryString)}
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                if (results != null) {
+                    data = results.values as MutableList<TaskDataModel>
+                    notifyDataSetChanged()
+                }
+            }
+
+        }
     }
 }
 

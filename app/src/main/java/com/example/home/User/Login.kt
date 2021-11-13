@@ -47,7 +47,6 @@ class Login : AppCompatActivity() {
             }
             .addOnFailureListener {
                 if (it is FirebaseAuthInvalidCredentialsException) {
-                    //TODO: show error message
                     Toast.makeText(
                         this,
                         "Login failed without completion ${it.message}",

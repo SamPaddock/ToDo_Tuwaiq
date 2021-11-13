@@ -6,136 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Task.EditTaskActivity">
 
-    <ScrollView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editTaskToolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTaskToolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewMemberTaskHintEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/member_hint"
-                android:textAppearance="@style/comic_title_style" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardViewEditImage"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="70dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/imageViewAEditMemberTask"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:srcCompat="@tools:sample/avatars" />
-                </androidx.cardview.widget.CardView>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputEditMember"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cardViewEditImage"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:startIconDrawable="@drawable/ic_name_24">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editInputEditMember"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textViewEditCreationDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:text="@string/creation_date_hint"
-                    android:textAppearance="@style/play_body_style"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageViewEditCreationDate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageViewEditCreationDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:src="@drawable/ic_calendar_40"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_calendar_40" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textViewEditDueDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:text="@string/due_date_hint"
-                    android:textAppearance="@style/play_body_style"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageViewEditDueDate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageViewEditDueDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:src="@drawable/ic_calendar_40"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_calendar_40" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEditTaskTitle"
@@ -166,27 +60,223 @@
                     android:id="@+id/editInputEditTaskDetails"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="start|top"
+                    android:lines="5"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputAddAdditionalTaskDetails"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textViewEditCreationDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/creation_date_hint"
+                    android:textAppearance="@style/comic_title_style"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageViewEditCreationDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewEditCreationDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:src="@drawable/ic_calendar_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_calendar_40" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewEditDueDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/due_date_hint"
+                    android:textAppearance="@style/comic_title_style"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageViewEditDueDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewEditDueDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:src="@drawable/ic_calendar_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_calendar_40" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textViewPriorityHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/select_priority"
+                android:textAppearance="@style/comic_title_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipEditGroupPriority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:checkedChip="@id/chip_medium"
+                    app:chipSpacing="16dp"
+                    app:chipSpacingHorizontal="16dp"
+                    app:chipSpacingVertical="8dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_high_edit"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="1"
+                        android:text="@string/high_priority"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_medium_edit"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:tag="2"
+                        android:text="@string/medium_priority"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_low_edit"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="3"
+                        android:text="@string/low_priority"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style" />
+                </com.google.android.material.chip.ChipGroup>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewEditTagHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/tag"
+                android:textAppearance="@style/comic_title_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipEditGroupTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipSpacing="8dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEditLabelGreen"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="1"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style"
+                        app:chipBackgroundColor="@color/labelGreenUnChecked" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEditLabelYellow"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="2"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style"
+                        app:chipBackgroundColor="@color/labelYellowUnChecked" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEditLabelRed"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="3"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style"
+                        app:chipBackgroundColor="@color/labelRedUnChecked" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEditLabelPurple"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="4"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style"
+                        app:chipBackgroundColor="@color/labelPurpleUnChecked" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEditLabelBlue"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:tag="5"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/comic_body_style"
+                        app:chipBackgroundColor="@color/labelBlueUnChecked" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonSaveChanges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:hint="@string/additional_task_details_hint"
-                app:startIconDrawable="@drawable/ic_description_24">
+                android:text="@string/save_changes" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editInputAddAdditionalTaskDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

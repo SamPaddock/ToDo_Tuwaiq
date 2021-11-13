@@ -145,7 +145,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="@string/_1_day_hint"
                             android:textAppearance="@style/comic_title_style" />
                     </androidx.cardview.widget.CardView>
 
@@ -156,7 +155,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="@string/task_title_hint"
                         android:textAppearance="@style/comic_title_style"
                         app:layout_constraintEnd_toStartOf="@+id/foldedCheckBoxIsDone"
                         app:layout_constraintStart_toEndOf="@+id/unfoldedCardView"
@@ -177,7 +175,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/medium_priority"
                         android:textAppearance="@style/comic_body_style"
                         app:layout_constraintBottom_toTopOf="@+id/textViewStartEndDate"
                         app:layout_constraintStart_toEndOf="@+id/unfoldedCardView"

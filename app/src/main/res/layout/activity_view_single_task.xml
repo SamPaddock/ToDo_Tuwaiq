@@ -27,28 +27,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:layout_conversion_absoluteHeight="166dp"
+                tools:layout_conversion_absoluteWidth="411dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="56dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewViewImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
                     app:cardCornerRadius="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="100dp"
+                    tools:layout_conversion_absoluteWidth="100dp">
 
                     <ImageView
                         android:id="@+id/imageViewViewMemberTask"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:layout_conversion_absoluteHeight="100dp"
+                        tools:layout_conversion_absoluteWidth="100dp"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="89dp"
                         tools:srcCompat="@tools:sample/avatars" />
                 </androidx.cardview.widget.CardView>
 
@@ -56,34 +66,35 @@
                     android:id="@+id/textViewViewDueDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:textAppearance="@style/comic_body_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/cardViewViewImage"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="17dp"
+                    tools:layout_conversion_absoluteWidth="0dp" />
 
                 <TextView
                     android:id="@+id/textViewViewTaskPriority"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
                     android:textAppearance="@style/comic_body_style"
                     app:layout_constraintBottom_toTopOf="@+id/chipTaskTag"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/cardViewViewImage"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewViewDueDate" />
+                    app:layout_constraintTop_toBottomOf="@+id/textViewViewDueDate"
+                    tools:layout_conversion_absoluteHeight="17dp"
+                    tools:layout_conversion_absoluteWidth="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTaskTag"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
                     android:clickable="false"
                     android:text="@string/tag"
                     android:textAlignment="center"
@@ -91,18 +102,23 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/cardViewViewImage" />
+                    app:layout_constraintStart_toEndOf="@+id/cardViewViewImage"
+                    tools:layout_conversion_absoluteHeight="48dp"
+                    tools:layout_conversion_absoluteWidth="70dp" />
 
                 <TextView
                     android:id="@+id/textViewViewMemberName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textAppearance="@style/comic_body_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardViewViewImage" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardViewViewImage"
+                    tools:layout_conversion_absoluteHeight="17dp"
+                    tools:layout_conversion_absoluteWidth="0dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -113,25 +129,48 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="@string/task_title_hint"
-                android:textAppearance="@style/comic_title_style" />
+                android:textAppearance="@style/comic_title_style"
+                tools:layout_conversion_absoluteHeight="25dp"
+                tools:layout_conversion_absoluteWidth="379dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <TextView
                 android:id="@+id/textViewViewTaskDetails"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="@string/task_details_hint"
-                android:textAppearance="@style/comic_body_style" />
+                android:textAppearance="@style/comic_body_style"
+                tools:layout_conversion_absoluteHeight="17dp"
+                tools:layout_conversion_absoluteWidth="379dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="295dp" />
 
             <TextView
-                android:id="@+id/textViewViewTaskLocation"
+                    android:id="@+id/textViewViewTaskLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textAppearance="@style/play_title_style"
+                    android:visibility="gone"
+                    tools:layout_conversion_absoluteHeight="0dp"
+                    tools:layout_editor_absoluteY="56dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="0dp" />
+
+            <Button
+                android:id="@+id/buttonMarkComplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="Location"
-                android:textAppearance="@style/play_title_style"
-                android:visibility="gone" />
+                android:layout_margin="16dp"
+                android:text="@string/mark_complete"
+                android:textColor="#000000"
+                tools:ignore="TextContrastCheck"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="379dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="344dp" />
 
         </LinearLayout>
     </ScrollView>

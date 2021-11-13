@@ -25,19 +25,26 @@ class TaskModel() {
         }
     }
 
-    fun remainingDays(dueDate: Long?): String{
+    fun getCheckedColor(tag: String): Int {
+        return when (tag){
+            "1" -> R.color.labelGreenChecked
+            "2" -> R.color.labelYellowChecked
+            "3" -> R.color.labelRedChecked
+            "4" -> R.color.labelPurpleChecked
+            "5" -> R.color.labelBlueChecked
+            else -> R.color.labelGreenChecked
+        }
+    }
+
+    fun remainingDays(dueDate: Long?): Int{
         val todayDate = Calendar.getInstance()
         val endDate = Calendar.getInstance()
         if (dueDate != null) {
             endDate.timeInMillis = dueDate
         }
-        val diff = Math.abs(endDate.timeInMillis - todayDate.timeInMillis)
-        val dayCount = diff/ (24 * 60 * 60 * 1000)
-        return if (dayCount.toInt() == 1 || dayCount.toInt() == 0){
-            "1 day"
-        } else {
-            "${dayCount} days"
-        }
+        val diff = todayDate.timeInMillis - endDate.timeInMillis
+        val dayCount = (diff/ (24 * 60 * 60 * 1000))
+        return dayCount.toInt()
     }
 
     fun convertToDate(dueDate: Long?): String{
@@ -48,5 +55,10 @@ class TaskModel() {
             endDate.get(Calendar.MONTH),
             endDate.get(Calendar.DAY_OF_MONTH))
         return "$endDay/${endMonth+1}/$endYear "
+    }
+
+    fun isPastDue(dueDate: Long? = 0): Boolean {
+        val currentDate = Calendar.getInstance().timeInMillis
+        return dueDate!! <= currentDate
     }
 }

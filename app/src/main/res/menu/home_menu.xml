@@ -12,15 +12,19 @@
             app:actionViewClass="android.widget.SearchView"
             app:showAsAction="always" />
         <item
-            android:id="@+id/home_filter_menu"
-            android:icon="@drawable/ic_filter_24"
-            android:title="@string/home_filter">
-            <menu />
-        </item>
-        <item
             android:id="@+id/home_sort_menu"
             android:title="@string/home_sort">
-            <menu />
+            <menu >
+                <item
+                    android:id="@+id/alphaAscSort"
+                    android:title="@string/a_z" />
+                <item
+                    android:id="@+id/alphaDescSort"
+                    android:title="@string/z_a" />
+                <item
+                    android:id="@+id/dateAddedAscSort"
+                    android:title="@string/date_added" />
+            </menu>
         </item>
     </group>
     <group

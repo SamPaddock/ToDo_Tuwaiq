@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.home.Adapter.UserDropDownAdapter
 import com.example.home.Firebase.FirebaseClient
 import com.example.home.Model.TaskDataModel
+import com.example.home.Model.TaskModel
 import com.example.home.Model.User
 import com.example.home.R
 import com.google.android.material.chip.Chip
@@ -23,19 +24,17 @@ import java.util.*
 class AddTaskActivity : AppCompatActivity() {
 
     var users = mutableListOf<User>()
-    var selectedUserEmail = ""
+    lateinit var selectedUserUid: String
 
-    var newTasks: TaskDataModel? = null
+    lateinit var newTasks: TaskDataModel
 
-    var selectedCalender: Calendar? = null
-    var selectedPriority: String = "1"
-    var selectedTag: String = "2"
+    lateinit var selectedCalender: Calendar
+    var selectedPriority: String = "2"
+    var selectedTag: String = "1"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
-
-        selectedUserEmail = Firebase.auth.currentUser?.email!!
 
         FirebaseClient().getUsers().observe(this,{
             users = it
@@ -58,60 +57,66 @@ class AddTaskActivity : AppCompatActivity() {
     private fun addTaskToFirebase() {
         newTasks = requiredTaskHandler()
 
-        if (selectedCalender != null) {
-            newTasks?.dueDate = selectedCalender?.timeInMillis
-        }
-        newTasks?.creationDate = Calendar.getInstance().timeInMillis
-        newTasks?.priority = selectedPriority
-        newTasks?.tag = selectedTag
+        newTasks.dueDate = selectedCalender.timeInMillis
+        newTasks.creationDate = Calendar.getInstance().timeInMillis
+        newTasks.priority = selectedPriority
+        newTasks.tag = selectedTag
 
-        if (newTasks != null) {
-            FirebaseClient().addTask(newTasks!!, Firebase.auth.uid.toString())
+        if (selectedUserUid != Firebase.auth.currentUser?.uid!!){
+            FirebaseClient().addTask(newTasks, selectedUserUid)
                 .observe(this, {
                     if (it == true) {
                         Toast.makeText(this, "Successfully added", Toast.LENGTH_SHORT).show()
                     }
                 })
         }
+
+        FirebaseClient().addTask(newTasks, Firebase.auth.uid.toString())
+            .observe(this, {
+                if (it == true) {
+                    Toast.makeText(this, "Successfully added", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            })
     }
 
-    fun showDatePickerDialog(){
+    private fun showDatePickerDialog(){
         //input view and Clickable image view
         val taskDueDateBtn = findViewById<ImageView>(R.id.imageViewAddDueDate)
         taskDueDateBtn.setOnClickListener {
             //get current date
             val currentDate = Calendar.getInstance()
-            val year = currentDate.get(Calendar.YEAR)
-            val month = currentDate.get(Calendar.MONTH)
+            val currentYear = currentDate.get(Calendar.YEAR)
+            val currentMonth = currentDate.get(Calendar.MONTH)
             val day = currentDate.get(Calendar.DAY_OF_MONTH)
             val dayDialog = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                this, { view, year, month, dayOfMonth ->
                     val taskDueDate = findViewById<TextView>(R.id.textViewAddDueDate)
-                    taskDueDate.text = "$dayOfMonth/${month+1}/$year"
-                    var calender = Calendar.getInstance()
+                    val dateString = "$dayOfMonth/${month + 1}/$year"
+                    taskDueDate.text = dateString
+                    val calender = Calendar.getInstance()
                     calender.set(year,month,dayOfMonth)
                     selectedCalender = calender
                 },
-                year,
-                month,
+                currentYear,
+                currentMonth,
                 day)
             dayDialog.show()
         }
     }
 
-    fun requiredTaskHandler(): TaskDataModel {
+    private fun requiredTaskHandler(): TaskDataModel {
         val taskTitle = findViewById<TextInputLayout>(R.id.textInputAddTaskTitle)
         val taskDescription = findViewById<TextInputLayout>(R.id.textInputAddTaskDetails)
 
         return TaskDataModel(
             taskTitle.editText?.text.toString(),
             taskDescription.editText?.text.toString(),
-            selectedUserEmail,
+            selectedUserUid,
         )
     }
 
-    fun priorityTaskHandler(){
+    private fun priorityTaskHandler(){
         val chipGroupPriority = findViewById<ChipGroup>(R.id.chipGroupPriority)
         chipGroupPriority.setOnCheckedChangeListener { group, checkedId ->
             val chip = findViewById<Chip>(checkedId)
@@ -119,11 +124,16 @@ class AddTaskActivity : AppCompatActivity() {
         }
     }
 
-    fun tagsTaskHandler(){
+    private fun tagsTaskHandler(){
         val chipGroupTag = findViewById<ChipGroup>(R.id.chipGroupTag)
         chipGroupTag.setOnCheckedChangeListener { group, checkedId ->
+            val checkedPreviousTag = chipGroupTag.findViewWithTag<Chip>(selectedTag)
             val chip = findViewById<Chip>(checkedId)
-            selectedTag = chip.tag.toString()
+            if (checkedPreviousTag != null && chip != null && checkedPreviousTag.id != chip.id) {
+                checkedPreviousTag.setChipBackgroundColorResource(TaskModel().getTagColor(selectedTag))
+                chip.setChipBackgroundColorResource(TaskModel().getCheckedColor(chip.tag.toString()))
+                selectedTag = chip.tag.toString()
+            }
         }
     }
 
@@ -145,7 +155,7 @@ class AddTaskActivity : AppCompatActivity() {
         membersDropDownList.setOnItemClickListener { parent, view, position, id ->
             //Image view
             val userImage = findViewById<ImageView>(R.id.imageViewAddMemberTask)
-            selectedUserEmail = users[position].email
+            selectedUserUid = users[position].uid
             Picasso.get().load(Uri.parse(users[position].imageDataUri)).fit().into(userImage)
         }
     }
