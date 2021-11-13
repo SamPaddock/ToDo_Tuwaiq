@@ -1,10 +1,12 @@
 package com.example.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.example.home.Launcher.Splash
 import com.example.home.Model.User
 import com.example.home.Task.ViewTasksFragment
 import com.google.firebase.auth.ktx.auth
@@ -47,8 +49,11 @@ class MainActivity : AppCompatActivity() {
         mainSlider.onDrawerItemClickListener = { v, drawerItem, position ->
             when(drawerItem.identifier){
                 0.toLong() -> displayFragment(ViewTasksFragment(),"home")
-                1.toLong() -> displayFragment(ViewTasksFragment(),"profile")
+                1.toLong() -> displayFragment(ViewTasksFragment(),"all")
                 2.toLong() -> displayFragment(ViewTasksFragment(),"today")
+                3.toLong() -> displayFragment(ViewTasksFragment(),"pastDue")
+                4.toLong() -> displayFragment(ViewTasksFragment(),"completed")
+                7.toLong() -> signOutFromAccount()
                 else -> displayFragment(ViewTasksFragment(),"home")
             }
             false
@@ -67,8 +72,8 @@ class MainActivity : AppCompatActivity() {
             identifier = 0
         }
         val item1 = PrimaryDrawerItem().apply {
-            nameRes = R.string.profile
-            iconRes = R.drawable.ic_id_card_24
+            nameRes = R.string.all_tasks
+            iconRes = R.drawable.ic_list_alt_24
             identifier = 1
         }
         val item2 = PrimaryDrawerItem().apply {
@@ -76,10 +81,20 @@ class MainActivity : AppCompatActivity() {
             iconRes = R.drawable.ic_today_24
             identifier = 2
         }
-        val item3 = SecondaryDrawerItem().apply {
-            nameRes = R.string.setting
-            iconRes = R.drawable.ic_settings_24
+        val item3 = PrimaryDrawerItem().apply {
+            nameRes = R.string.past_due
+            iconRes = R.drawable.ic_assignment_late_24
             identifier = 3
+        }
+        val item4 = PrimaryDrawerItem().apply {
+            nameRes = R.string.completed_tasks
+            iconRes = R.drawable.ic_done_all_24
+            identifier = 4
+        }
+        val item7 = SecondaryDrawerItem().apply {
+            nameRes = R.string.sign_out_btn
+            iconRes = R.drawable.ic_exit_24
+            identifier = 7
         }
 
         mainSlider.itemAdapter.add(
@@ -87,8 +102,10 @@ class MainActivity : AppCompatActivity() {
             DividerDrawerItem(),
             item1,
             item2,
+            item3,
+            item4,
             DividerDrawerItem(),
-            item3
+            item7
         )
     }
 
@@ -107,6 +124,13 @@ class MainActivity : AppCompatActivity() {
             }
             withSavedInstance(savedInstanceState)
         }
+    }
+
+    private fun signOutFromAccount(){
+        Firebase.auth.signOut()
+        val intent = Intent(this, Splash::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun displayFragment(fragment: Fragment, tag: String) {

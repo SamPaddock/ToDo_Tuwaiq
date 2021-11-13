@@ -1,12 +1,8 @@
 package com.example.home.Task
 
-import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +13,6 @@ import com.example.home.MainActivity
 import com.example.home.Model.TaskDataModel
 import com.example.home.Model.TaskModel
 import com.example.home.R
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -54,9 +48,9 @@ class ViewTasksFragment : Fragment() {
     override fun onStart() {
         taskList.removeAll(taskList)
 
-        FirebaseClient().getAllTasks(Firebase.auth.uid!!).observe(viewLifecycleOwner,{
-            taskList = it
-            recycledView = inflate.findViewById<RecyclerView>(R.id.recyclerView)
+        FirebaseClient().getAllTasks(Firebase.auth.uid!!).observe(viewLifecycleOwner,{ result ->
+            taskList = result
+            recycledView = inflate.findViewById(R.id.recyclerView)
             recycledView.layoutManager = LinearLayoutManager(activity)
             adapter = context?.let { TaskAdapter(this.viewLifecycleOwner, it, taskList) }!!
             recycledView.adapter = adapter
@@ -70,19 +64,11 @@ class ViewTasksFragment : Fragment() {
         inflater.inflate(R.menu.home_menu,menu)
         val searchItem = menu.findItem(R.id.home_search_view)
         val searchView = searchItem?.actionView as SearchView
-        searchTask(inflate.findViewById<RecyclerView>(R.id.recyclerView), searchView)
+        searchTask(inflate.findViewById(R.id.recyclerView), searchView)
 
         sortList(menu)
 
         super.onCreateOptionsMenu(menu,inflater)
-    }
-
-    private fun filterCustomDialog(filterlayout: Int): Pair<AlertDialog, View> {
-        val customAlertDialog = AlertDialog.Builder(this.context).create()
-        customAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        val view = layoutInflater.inflate(filterlayout, null)
-        return Pair(customAlertDialog, view)
     }
 
     private fun sortList(menu: Menu) {
@@ -112,21 +98,39 @@ class ViewTasksFragment : Fragment() {
     private fun filterFromSlider(mutableList: MutableList<TaskDataModel>){
         val filterType = arguments?.get("filterType")
         val result: List<TaskDataModel>
-        if (filterType == "home"){
-            result = mutableList.filter { (it.isDone != true) }
-            recycledView.adapter = context?.let {TaskAdapter(
-                this@ViewTasksFragment.viewLifecycleOwner, it,
-                result as MutableList<TaskDataModel>)}
-        } else if (filterType == "today"){
-            result = mutableList.filter {(TaskModel().remainingDays(it.dueDate) == 0
-                    && !TaskModel().isPastDue(it.dueDate))}
-            recycledView.adapter = context?.let {TaskAdapter(
-                this@ViewTasksFragment.viewLifecycleOwner, it,
-                result as MutableList<TaskDataModel>)}
-        } else {
-            recycledView.adapter = context?.let {TaskAdapter(
-                this@ViewTasksFragment.viewLifecycleOwner, it, mutableList)}
+
+        when (filterType){
+            "home" -> {
+                result = mutableList.filter { (it.isDone != true) }
+                recycledView.adapter = context?.let {TaskAdapter(
+                    this@ViewTasksFragment.viewLifecycleOwner, it,
+                    result as MutableList<TaskDataModel>)}
+            }
+            "today" -> {
+                result = mutableList.filter {(TaskModel().remainingDays(it.dueDate) == 0
+                        && !TaskModel().isPastDue(it.dueDate))}
+                recycledView.adapter = context?.let {TaskAdapter(
+                    this@ViewTasksFragment.viewLifecycleOwner, it,
+                    result as MutableList<TaskDataModel>)}
+            }
+            "pastDue" -> {
+                result = mutableList.filter {TaskModel().isPastDue(it.dueDate)}
+                recycledView.adapter = context?.let {TaskAdapter(
+                    this@ViewTasksFragment.viewLifecycleOwner, it,
+                    result as MutableList<TaskDataModel>)}
+            }
+            "completed" -> {
+                result = mutableList.filter {(it.isDone == true)}
+                recycledView.adapter = context?.let {TaskAdapter(
+                    this@ViewTasksFragment.viewLifecycleOwner, it,
+                    result as MutableList<TaskDataModel>)}
+            }
+            else -> {
+                recycledView.adapter = context?.let {TaskAdapter(
+                    this@ViewTasksFragment.viewLifecycleOwner, it, mutableList)}
+            }
         }
+
     }
 
     fun searchTask(recycledView: RecyclerView, searchView: SearchView) {

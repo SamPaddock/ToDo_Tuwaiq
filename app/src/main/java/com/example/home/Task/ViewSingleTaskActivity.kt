@@ -97,7 +97,7 @@ class ViewSingleTaskActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.textViewViewTaskDetails).text = data.description
             //Completion Btn
             val buttonMarkComplete = findViewById<Button>(R.id.buttonMarkComplete)
-            buttonMarkComplete.text = if (data.isDone!!) getString(R.string.mark_incomplete)
+            buttonMarkComplete.text = if (data.isDone == true) getString(R.string.mark_incomplete)
                                       else getString(R.string.mark_complete)
             buttonMarkComplete.setOnClickListener {
                 data.isDone = data.isDone != true

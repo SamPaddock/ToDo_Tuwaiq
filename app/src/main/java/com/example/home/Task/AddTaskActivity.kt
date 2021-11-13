@@ -162,6 +162,10 @@ class AddTaskActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
+        menu?.findItem(R.id.cancel_action)?.setOnMenuItemClickListener {
+            finish()
+            true
+        }
         return super.onCreateOptionsMenu(menu)
     }
 }

@@ -42,7 +42,7 @@ class TaskModel() {
         if (dueDate != null) {
             endDate.timeInMillis = dueDate
         }
-        val diff = todayDate.timeInMillis - endDate.timeInMillis
+        val diff = Math.abs(todayDate.timeInMillis - endDate.timeInMillis)
         val dayCount = (diff/ (24 * 60 * 60 * 1000))
         return dayCount.toInt()
     }

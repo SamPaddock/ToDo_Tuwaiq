@@ -107,7 +107,7 @@ class FirebaseClient() {
                     val result = snapshot.result
                     if (result != null) {
                         for (document in result.documents){
-                            if (document.getString("Email") == assignedMemberID){
+                            if (document.id == assignedMemberID){
                                 println("User: Got image")
                                 val user = User(
                                     document?.id!!,
