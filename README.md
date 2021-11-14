@@ -19,32 +19,34 @@ Clone project repository
 `$ git clone https://github.com/SamPaddock/ToDo_Tuwaiq.git`
 
 ## Flowchart
+The following are the application flowchart:
 
-###Splash
+### Splash
+Launch view
 
-###Login
+### Login
 
-###Signup
+### Signup
 
-###Main View
+### Main View
 
-###Slider Menu
+### Slider Menu
 
-###Add Task
+### Add Task
 
-###Edit Task
+### Edit Task
 
-###View Task
+### View Task
 
 ## Technology
 
-###Firebase
+### [Firebase](https://firebase.google.com/)
 
-###Picasso
+### [Picasso](https://square.github.io/picasso/)
 
-###Ramotion - Folding Cell
+### [Ramotion - Folding Cell](https://github.com/Ramotion/folding-cell-android)
 
-###Material Drawer
+### [Material Drawer](https://github.com/mikepenz/MaterialDrawer)
 
 ## Sources
 
