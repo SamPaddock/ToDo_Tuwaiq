@@ -3,13 +3,10 @@ package com.example.home.Firebase
 import android.content.ContentValues.TAG
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.example.home.Model.TaskDataModel
 import com.example.home.Model.User
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
+import com.example.home.User.SignUp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,12 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import java.util.*
 import kotlin.collections.HashMap
 
-class FirebaseClient() {
+class FirebaseClient(): ViewModel() {
 
     var dbFirestore: FirebaseFirestore? = null
     var dbFBStorage: FirebaseStorage? = null
@@ -37,22 +33,17 @@ class FirebaseClient() {
     fun createDBStorage(){dbFBStorage = Firebase.storage}
     fun createDBAuth(){dbFBAuth = Firebase.auth}
 
-    fun signupUser(email: String, password: String,user: User): LiveData<Boolean>{
+    fun signupUser(email: String, password: String): LiveData<Boolean>{
         if (dbFBAuth == null) createDBAuth()
 
         val liveDataUser = MutableLiveData<Boolean>()
 
-        val newUser = hashMapOf(
-            "Email" to user.email,
-            "Name" to user.fullname,
-            "Profile" to user.imageUri
-        )
-
         Firebase.auth.createUserWithEmailAndPassword(email,password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) createUserAccount(newUser)
+            .addOnSuccessListener {
+                liveDataUser.postValue(true)
             }.addOnFailureListener {
                 Log.d(TAG,"Error in signing up: ${it.message}")
+                liveDataUser.postValue(false)
             }
         return liveDataUser
     }
@@ -135,13 +126,17 @@ class FirebaseClient() {
                 if (snapshot.isSuccessful && snapshot.result != null) {
                     val listOfUsers = mutableListOf<User>()
                     for (user in snapshot.result!!) {
-                        val email = user.get("Email") as String
-                        val name = user.get("Name") as String
-                        val image = user.get("Profile") as String
-                        val dbUser = User(user.id, email)
-                        dbUser.fullname = name
-                        dbUser.imageUri = image
-                        listOfUsers.add(dbUser)
+                        if (!user.data.isEmpty()){
+                            val email = user.get("Email") as String
+                            val name = user.get("Name") as String
+                            val image = user.get("Profile") as String
+                            val dbUser = User(user.id, email)
+                            dbUser.fullname = name
+                            dbUser.imageUri = image
+                            listOfUsers.add(dbUser)
+                        }
+
+
                     }
                     liveDataUser.postValue(listOfUsers)
                 }
@@ -271,19 +266,29 @@ class FirebaseClient() {
     }
 
     fun setImage(fileUri: Uri): MutableLiveData<String>{
+        if (dbFBStorage == null) createDBStorage()
+
         val fileName = UUID.randomUUID().toString() +".jpg"
 
         val liveDataImage = MutableLiveData<String>()
 
-        dbFBStorage?.reference?.child("images/$fileName")?.putFile(fileUri)
-            ?.addOnSuccessListener{ taskSnapshot ->
-                    taskSnapshot.storage.downloadUrl.addOnSuccessListener {
-                        val imageUrl = it.toString()
-                        liveDataImage.postValue(imageUrl)
-                    }
-            }?.addOnFailureListener{
-                Log.d(TAG,"could not upload image: ${it.message}")
+        var ref = dbFBStorage?.reference?.child(Firebase.auth.uid.toString())?.child(fileName)
+
+        val uploadTask = ref?.putFile(fileUri)
+        val urlTask = uploadTask?.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                Log.d(TAG,"could not upload image: ${task.result?.error}")
             }
+            ref?.downloadUrl
+        }?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+                Log.d(TAG, downloadUri.toString())
+                liveDataImage.postValue(downloadUri.toString())
+            }
+        }?.addOnFailureListener{
+            Log.d(TAG,"could not upload image: ${it.message}")
+        }
         return liveDataImage
     }
 }

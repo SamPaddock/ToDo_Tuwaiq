@@ -1,7 +1,7 @@
 package com.example.home.User
 
 import android.content.Intent
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,13 +14,11 @@ import com.example.home.Firebase.FirebaseClient
 import com.example.home.MainActivity
 import com.example.home.Model.User
 import com.example.home.R
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class SignUp : AppCompatActivity() {
 
     lateinit var imageUri: String
+    lateinit var imgData: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +41,8 @@ class SignUp : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2 && resultCode == RESULT_OK) {
-            val imgData = data?.data
+            imgData = data?.data!!
             findViewById<ImageView>(R.id.imageViewSelectedPhoto).setImageURI(imgData)
-            if (imgData != null) {
-                FirebaseClient().setImage(imgData).observe(this,{
-                    imageUri = it.toString()
-                })
-            }
         }
     }
 
@@ -58,20 +51,16 @@ class SignUp : AppCompatActivity() {
         val editInputPassword = password.text.toString()
         val editInputName = name.text.toString()
 
-        if (emailVerification(editInputEmail) && imageUri.isNotEmpty()) {
+        if (emailVerification(editInputEmail) && imgData.path?.isEmpty() != true) {
             val user = User("", editInputEmail)
             user.fullname = editInputName
-            user.imageUri = imageUri
 
             FirebaseClient().signupUser(
                 editInputEmail,
-                editInputPassword,
-                user
+                editInputPassword
             ).observe(this, {
                 if (it == true) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    addToUserProfile(user)
                 } else {
                     Toast.makeText(this, getString(R.string.network_warning), Toast.LENGTH_SHORT)
                         .show()
@@ -81,6 +70,24 @@ class SignUp : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.email_photo_warning),Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun addToUserProfile(user: User) {
+        FirebaseClient().setImage(imgData).observe(this,{ imageUri ->
+            val newUser = hashMapOf(
+                "Email" to user.email,
+                "Name" to user.fullname,
+                "Profile" to imageUri.toString()
+            )
+            FirebaseClient().createUserAccount(newUser)
+            loginToApp()
+        })
+    }
+
+    private fun loginToApp(){
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun emailVerification(email: String): Boolean {

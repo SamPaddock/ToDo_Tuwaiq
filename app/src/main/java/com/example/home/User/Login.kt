@@ -30,7 +30,7 @@ class Login : AppCompatActivity() {
         }
 
         signUpBtn.setOnClickListener {
-
+            SignUpForApp()
         }
     }
 
@@ -65,6 +65,12 @@ class Login : AppCompatActivity() {
 
     private fun loginToApp(result: Task<AuthResult>) {
         val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun SignUpForApp() {
+        val intent = Intent(this, SignUp::class.java)
         startActivity(intent)
         finish()
     }
